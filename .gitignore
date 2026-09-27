@@ -6,3 +6,5 @@ node_modules/
 .env
 .env.*
 .env.local
+mcp/.venv/
+__pycache__/

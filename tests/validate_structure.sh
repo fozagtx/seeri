@@ -19,6 +19,23 @@ required_files=(
   "skill/article-synthesis.md"
   "skill/hackathon-submission.md"
   "skill/resources.md"
+  "skill/reasoning-serv.md"
+  "skill/domains/robinhood-chain.md"
+  "skill/domains/agentkit-base.md"
+  "skill/domains/ixs-rwa-vaults.md"
+  "skill/domains/memecoin-markets/SKILL.md"
+  "skill/domains/memecoin-markets/glossary.md"
+  "skill/domains/memecoin-markets/patterns.md"
+  "skill/domains/memecoin-markets/cheatsheet.md"
+  "mcp/server.py"
+  "mcp/Dockerfile"
+  "mcp/requirements.txt"
+  "mcp/README.md"
+  "mcp/seeri/prompts.py"
+  "mcp/seeri/skill_loader.py"
+  "mcp/sync_skill.sh"
+  "mcp/skill/SKILL.md"
+  "mcp/assets/logo.svg"
   "agents/research-analyst.md"
   "agents/source-verifier.md"
   "agents/article-synthesizer.md"
@@ -38,7 +55,7 @@ for file in "${required_files[@]}"; do
   fi
 done
 
-if ! grep -q '^name: deep-mantle-researcher$' "$ROOT_DIR/skill/SKILL.md"; then
+if ! grep -q '^name: seeri$' "$ROOT_DIR/skill/SKILL.md"; then
   echo "Missing skill name frontmatter." >&2
   exit 1
 fi
@@ -48,7 +65,12 @@ if ! grep -q '^description: .*Use when ' "$ROOT_DIR/skill/SKILL.md"; then
   exit 1
 fi
 
-for linked in research-workflow.md source-map.md evidence-grid.md article-synthesis.md hackathon-submission.md resources.md; do
+if ! grep -q '^name: seeri-memecoin-markets$' "$ROOT_DIR/skill/domains/memecoin-markets/SKILL.md"; then
+  echo "Missing memecoin-markets skill name frontmatter." >&2
+  exit 1
+fi
+
+for linked in research-workflow.md source-map.md evidence-grid.md article-synthesis.md hackathon-submission.md resources.md reasoning-serv.md domains/robinhood-chain.md domains/memecoin-markets/SKILL.md; do
   if ! grep -q "$linked" "$ROOT_DIR/skill/SKILL.md"; then
     echo "SKILL.md does not link $linked" >&2
     exit 1
@@ -58,6 +80,14 @@ done
 bash -n "$ROOT_DIR/install.sh"
 bash -n "$ROOT_DIR/install-custom.sh"
 bash -n "$ROOT_DIR/tests/validate_structure.sh"
+bash -n "$ROOT_DIR/mcp/sync_skill.sh"
+
+while IFS= read -r py; do
+  if ! python3 -m py_compile "$py"; then
+    echo "Python compile failed: $py" >&2
+    exit 1
+  fi
+done < <(find "$ROOT_DIR/mcp" -name '*.py' -not -path '*/.venv/*')
 
 blocked_terms=(
   "$(printf "%s%s" "Co" "dex")"
@@ -67,8 +97,8 @@ blocked_terms=(
 )
 
 for term in "${blocked_terms[@]}"; do
-  if grep -R -n --exclude-dir=.git -- "$term" "$ROOT_DIR" >/tmp/deep_mantle_researcher_hygiene.txt; then
-    cat /tmp/deep_mantle_researcher_hygiene.txt >&2
+  if grep -R -n --exclude-dir=.git --exclude-dir=.venv --exclude-dir=__pycache__ --exclude-dir=node_modules -- "$term" "$ROOT_DIR" >/tmp/seeri_hygiene.txt; then
+    cat /tmp/seeri_hygiene.txt >&2
     echo "Attribution hygiene check failed." >&2
     exit 1
   fi

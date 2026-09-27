@@ -1,0 +1,8 @@
+mcp>=1.10,<2
+starlette
+uvicorn
+anyio
+httpx
+openai
+pydantic
+ddgs

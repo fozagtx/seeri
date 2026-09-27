@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SKILL_NAME="deep-mantle-researcher"
+SKILL_NAME="seeri"
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="${HOME}/.agents/skills/${SKILL_NAME}"
 CONFIG_TARGET="${HOME}/.agents/AGENTS.md"

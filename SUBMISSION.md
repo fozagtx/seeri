@@ -1,83 +1,83 @@
-# Submission Notes
+# Submission: SERV Reasoning Hackathon, Edition 01
 
 ## Project
 
-Deep Mantle Researcher
+Seeri: verifiable deep research for anything onchain. Reasoning by SERV.
+
+- Live MCP server and demo UI: https://pima5-seeri.hf.space
+- MCP endpoint (streamable HTTP): https://pima5-seeri.hf.space/mcp
+- Source: https://github.com/fozagtx/seeri
+
+## Tracks
+
+- Primary: Open Track. A research agent whose every reasoning step (decompose, classify sources, grade claims, synthesize) runs on SERV Reasoning, with an audit trail of calls and tokens in each report.
+- Secondary: Mainnet & MCP. The flagship demo researches Stock Tokens on Robinhood Chain over MCP, reading chain state directly from the mainnet RPC.
 
 ## Problem
 
-Onchain finance research often collapses into narrative: a protocol announces an RWA integration, a dashboard shows a number, a thread claims momentum, and the final article treats all of it as equally reliable. Builders and writers need a repeatable workflow that turns a messy question into a source-backed thesis without hiding uncertainty.
+Agents that act on money (trading, payments, vault allocation) inherit whatever research they were fed. Today that research is "search and summarize": a thread, a dashboard number, and a project announcement get equal weight. Nobody grades the evidence, nobody checks the contract address behind the ticker, and the agent acts anyway.
 
-## Who Uses It
+## What Seeri Does
 
-- Hackathon researchers
-- Onchain finance writers
-- RWA analysts
-- DeFi protocol teams
-- AI research-agent builders
-- Tokenized asset founders
-- Market-structure researchers
-- Community contributors writing protocol analysis
+Seeri is two things that share one method:
 
-## Novelty
+1. A skill (`skill/`): a written research method any agent can load. Intake, decomposition into 5-8 sub-questions, source categories, triangulation of the highest-stakes claim, an evidence grid with confidence rules, and a thesis that states what would change it. Domain packs add the verify-first list, traps, and required grid rows for Robinhood Chain, Coinbase AgentKit on Base, IXS RWA vaults, and memecoin markets.
+2. An MCP server (`mcp/`): the same method, executed. It loads the skill files at runtime and hands them to SERV as the system context on every call, gathers evidence from primary sources (Robinhood Chain RPC, GeckoTerminal, DefiLlama, the open web), and returns a graded report. Change the skill and the server's behavior changes.
 
-Most research workflows tell agents to "search and summarize." This skill forces the agent to decompose the question, assign source categories, triangulate the highest-stakes claim, score confidence, and preserve caveats before drafting. It is tuned for onchain finance, where token wrappers, legal rights, liquidity, execution quality, and dashboard definitions can differ sharply.
+## Why SERV
 
-## Kit Fit
+Every judgment step is a SERV call with a strict JSON contract. SERV's bounded reasoning is what makes 25 small structured calls per report reliable enough to trust: 0 failed calls in the final demo run, 33 seconds end to end on `gpt-5.4-mini`. The report footer shows the exact call and token count so a reader knows how much of the grading was machine-done.
 
-The repo follows a skill addon pattern:
+## MCP Tools
 
-- `skill/SKILL.md` entry point
-- focused progressive-disclosure modules
-- optional `agents/`
-- optional `commands/`
-- optional `rules/`
-- installer scripts
-- README
-- MIT license
-- local structure validator
+| Tool | What it does |
+| --- | --- |
+| `deep_research` | Full pipeline. Returns a markdown report: thesis, key findings, evidence grid, domain checklist, sources, caveats, what would change my mind, audit footer. |
+| `deep_research_json` | Same report as JSON for downstream agents. |
+| `verify_claim` | Triangulate one claim across source categories and grade it. |
+| `robinhood_token_dossier` | Resolve a ticker or address on Robinhood Chain: RPC-decoded contract identity, pools, liquidity, 24h volume, and a ticker-collision warning when several tokens share the symbol. |
+| `protocol_snapshot` | DefiLlama TVL and chain footprint for a protocol or chain. |
+| `web_evidence` | Search, fetch, and classify web sources by category, interest, and freshness. |
+| `seeri_skill` | Read any file of the research method. |
+| `list_skill_files` | List the skill files. |
 
-## Safety
+## Demo Moment
 
-- No binaries
-- No network calls in install scripts
-- No opaque runtime behavior
-- Installers copy local Markdown files only
-- Clear boundaries for legal, financial, compliance, investment, security, and trading work
-- Validator checks for forbidden attribution strings before submission
+Ask for the `HOOD` dossier. Robinhood Chain has at least six distinct tokens that match that ticker (HOOD, HOODS, HOODCATS, HOODRAT, HOODIE, pHOOD3x). Seeri resolves every one through the mainnet RPC, shows the pool liquidity behind each, and refuses to attribute a price or premium to "HOOD" until the contract is confirmed against the issuer registry. That is the behavior an agent about to trade needs.
 
 ## Demo Prompts
 
 ```text
-Research whether Mantle's RWA push is mostly an issuance story or whether distribution and market structure are the real shift.
+Is the HOOD Stock Token on Robinhood Chain trading at a premium to the underlying, and how deep is its liquidity?
 ```
 
 ```text
-Build a findings grid for xStocks on Mantle using Mantle releases, xStocks docs, market-data sources, and regulator framing.
+What does an IXS licensed RWA vault actually license, who can deposit, and where does the yield come from?
 ```
 
 ```text
-Turn this research into a Track 1 article outline and a Track 2 research-agent walkthrough.
+Verify: Robinhood Chain TVL is above $100M.
 ```
 
-## Expected Outputs
+## Connect To Claude
 
-- Original messy question
-- Research decomposition
-- Source map
-- Triangulated highest-stakes claim
-- Findings grid
-- Confidence levels
-- Article thesis and outline
-- Caveats and contradiction log
-- Live workflow demo
+Claude.ai or Claude Desktop: add a custom connector with the URL `https://pima5-seeri.hf.space/mcp`.
 
-## Live Example
+Claude Code:
 
-The bundled example researches this question:
+```bash
+claude mcp add --transport http seeri https://pima5-seeri.hf.space/mcp
+```
 
-> Is Mantle's recent RWA/tokenized-equity push mainly an issuance story, or is the real shift distribution and market structure?
+## Revenue Path
 
-The expected thesis:
+- Hosted research API metered per report, with the audit footer as the billing unit.
+- Domain packs as paid modules for chains, RWA issuers, and trading desks that need their own verify-first lists.
+- Pre-trade research gate for agent frameworks: an agent calls `verify_claim` before it calls `execute_swap`.
 
-> Mantle's strongest story is not that it can host tokenized assets. Its stronger story is that it is assembling the distribution, execution, liquidity, and agent infrastructure that tokenized assets need to become usable markets.
+## Safety
+
+- Read-only. Seeri holds no wallet and signs nothing.
+- Educational research output. Not investment, legal, or tax advice.
+- SERV output is never cited as a source; it only organizes evidence.
+- Refusal detection and local fallback: if SERV is unavailable the report says so and downgrades confidence.
