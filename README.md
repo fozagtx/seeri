@@ -13,6 +13,30 @@
 
 Seeri is a research agent you plug into Claude (or any MCP client) that turns a messy onchain question into evidence you can defend. Instead of "search and summarize," it decomposes the question, pulls primary sources (chain RPC, pools, TVL, docs), grades every claim with a confidence level, and tells you what would change its mind. Every reasoning step runs on SERV. Built for people about to act on money: traders, analysts, agent builders, and writers who need the research done right, today.
 
+## Built with
+
+Seeri is free and MIT-licensed. These are the systems it reasons with and researches.
+
+<table align="center">
+  <tbody>
+    <tr>
+      <td colspan="12" width="850" align="center"><a href="https://www.openserv.ai/"><img src="./mcp/assets/partners/openserv.svg" alt="OpenServ SERV Reasoning" height="44" align="middle" /></a><br /><sub>Reasoning by SERV</sub></td>
+    </tr>
+    <tr>
+      <td colspan="4" width="283" align="center" bgcolor="#0B1220"><a href="https://robinhood.com/"><img src="./mcp/assets/partners/robinhood.svg" alt="Robinhood Chain" height="36" align="middle" /></a></td>
+      <td colspan="4" width="283" align="center"><a href="https://www.coinbase.com/developer-platform"><img src="./mcp/assets/partners/coinbase.png" alt="Coinbase AgentKit" height="36" align="middle" /> <b>Coinbase AgentKit</b></a></td>
+      <td colspan="4" width="283" align="center"><a href="https://www.ixs.finance/"><img src="./mcp/assets/partners/ixs.png" alt="IXS Finance" height="36" align="middle" /> <b>IXS Finance</b></a></td>
+    </tr>
+    <tr>
+      <td colspan="4" width="283" align="center"><a href="https://huggingface.co/spaces/pima5/seeri"><img src="./mcp/assets/partners/huggingface.svg" alt="Hugging Face" height="32" align="middle" /> <b>Hugging Face Spaces</b></a></td>
+      <td colspan="4" width="283" align="center"><a href="https://modelcontextprotocol.io/"><b>Model Context Protocol</b></a></td>
+      <td colspan="4" width="283" align="center"><a href="https://www.geckoterminal.com/"><b>GeckoTerminal</b></a> · <a href="https://defillama.com/"><b>DefiLlama</b></a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p align="center"><sub>Logos are the official assets of their owners; sources in <a href="./mcp/assets/partners/SOURCES.md">SOURCES.md</a>. Seeri is not affiliated with or endorsed by them.</sub></p>
+
 ## Why Seeri
 
 **Verifiable, not vibes.** Every claim is tied to a source category (chain state, price feed, market data, primary docs, regulatory, news, social) and an interest label (independent, interested, project-reported). High confidence requires a primary source plus independent corroboration across two categories. Nothing less.
@@ -102,30 +126,6 @@ uvicorn server:app --port 7860       # MCP at http://localhost:7860/mcp
 ```
 
 Or install just the skill into your agent: `./install.sh -y` (copies to `~/.agents/skills/seeri`). Validate the repo with `bash tests/validate_structure.sh`.
-
-## Built with
-
-Seeri is free and MIT-licensed. These are the systems it reasons with and researches.
-
-<table align="center">
-  <tbody>
-    <tr>
-      <td colspan="12" width="850" align="center"><a href="https://www.openserv.ai/"><img src="./mcp/assets/partners/openserv.svg" alt="OpenServ SERV Reasoning" height="44" align="middle" /></a><br /><sub>Reasoning by SERV</sub></td>
-    </tr>
-    <tr>
-      <td colspan="4" width="283" align="center" bgcolor="#0B1220"><a href="https://robinhood.com/"><img src="./mcp/assets/partners/robinhood.svg" alt="Robinhood Chain" height="36" align="middle" /></a></td>
-      <td colspan="4" width="283" align="center"><a href="https://www.coinbase.com/developer-platform"><img src="./mcp/assets/partners/coinbase.png" alt="Coinbase AgentKit" height="36" align="middle" /> <b>Coinbase AgentKit</b></a></td>
-      <td colspan="4" width="283" align="center"><a href="https://www.ixs.finance/"><img src="./mcp/assets/partners/ixs.png" alt="IXS Finance" height="36" align="middle" /> <b>IXS Finance</b></a></td>
-    </tr>
-    <tr>
-      <td colspan="4" width="283" align="center"><a href="https://huggingface.co/spaces/pima5/seeri"><img src="./mcp/assets/partners/huggingface.svg" alt="Hugging Face" height="32" align="middle" /> <b>Hugging Face Spaces</b></a></td>
-      <td colspan="4" width="283" align="center"><a href="https://modelcontextprotocol.io/"><b>Model Context Protocol</b></a></td>
-      <td colspan="4" width="283" align="center"><a href="https://www.geckoterminal.com/"><b>GeckoTerminal</b></a> · <a href="https://defillama.com/"><b>DefiLlama</b></a></td>
-    </tr>
-  </tbody>
-</table>
-
-<p align="center"><sub>Logos are the official assets of their owners; sources in <a href="./mcp/assets/partners/SOURCES.md">SOURCES.md</a>. Seeri is not affiliated with or endorsed by them.</sub></p>
 
 ## How a report is built
 
