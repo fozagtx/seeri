@@ -11,7 +11,7 @@
 
 # Seeri
 
-Seeri is a research agent you plug into Claude (or any MCP client) that turns a messy onchain question into evidence you can defend. Instead of "search and summarize," it decomposes the question, pulls primary sources (chain RPC, pools, TVL, docs), grades every claim with a confidence level, and tells you what would change its mind. Every reasoning step runs on SERV. Built for people about to act on money: traders, analysts, agent builders, and writers who need the research done right, today.
+Seeri is a research MCP server for onchain questions. Connect it to Claude, ask about a token, protocol, chain, or vault, and it returns a graded report: sub-questions, primary sources, a confidence level on every claim, and a list of what would change the conclusion. Every reasoning step runs on SERV.
 
 ## Built with
 
@@ -39,15 +39,15 @@ Seeri is free and MIT-licensed. These are the systems it reasons with and resear
 
 ## Why Seeri
 
-**Verifiable, not vibes.** Every claim is tied to a source category (chain state, price feed, market data, primary docs, regulatory, news, social) and an interest label (independent, interested, project-reported). High confidence requires a primary source plus independent corroboration across two categories. Nothing less.
+**Every claim carries its source and a grade.** Sources are labeled by category (chain state, price feed, market data, primary docs, regulatory, news, social) and by interest (independent, interested, project-reported). A claim is high confidence only when a primary source and an independent source from a different category agree.
 
-**Contract identity first.** Tickers collide on purpose. Ask Seeri for `HOOD` on Robinhood Chain and it resolves six distinct tokens through the mainnet RPC (HOOD, HOODS, HOODCATS, HOODRAT, HOODIE, pHOOD3x), shows the liquidity behind each, and refuses to attribute a price to "HOOD" until the contract is confirmed against the issuer registry. That is the check an agent needs before it trades.
+**It checks the contract before the price.** Ask for `HOOD` on Robinhood Chain and Seeri resolves six different tokens with that ticker through the mainnet RPC (HOOD, HOODS, HOODCATS, HOODRAT, HOODIE, pHOOD3x), shows the liquidity behind each one, and holds off on quoting a price until the contract address is confirmed against the issuer registry.
 
-**The method is a skill you can read.** Seeri's research method lives in `skill/` as plain Markdown. The MCP server loads it at runtime and hands it to SERV as the system context on every call. Change the skill, change the agent. Call `seeri_skill("SKILL.md")` from Claude and read exactly how it thinks.
+**The method is plain Markdown.** The research method lives in `skill/`. The server loads those files at runtime and sends them to SERV as the system context on every call, so editing the skill changes how the agent researches. Call `seeri_skill("SKILL.md")` from Claude to read it.
 
-**Reasoning by SERV.** Decompose, classify, grade, synthesize: 25 small structured calls per report, each with a strict JSON contract, each recorded in an audit footer with token counts. In the demo run: 33 seconds, 0 failed calls, on `gpt-5.4-mini`.
+**SERV does the reasoning.** Decompose, classify, grade, synthesize: about 25 structured calls per report, each with a JSON contract, each logged in the report footer with token counts. Demo run: 33 seconds, 0 failed calls, `gpt-5.4-mini`.
 
-**Read-only by design.** Seeri holds no wallet and signs nothing. It is the research layer that sits above trading tools like Robinhood MCP and Coinbase AgentKit.
+**Read-only.** Seeri holds no wallet and signs nothing. It sits above trading tools such as Robinhood MCP and Coinbase AgentKit and feeds them research.
 
 ## Installation
 
