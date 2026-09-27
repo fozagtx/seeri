@@ -4,6 +4,7 @@ import base64
 import json
 import mimetypes
 import os
+import re
 
 import anyio
 from mcp.server.fastmcp import FastMCP
@@ -223,6 +224,7 @@ def _landing_html() -> str:
     try:
         with open(os.path.join(ASSETS, "logo.svg")) as f:
             logo = f.read()
+        logo = re.sub(r'\s(width|height)="[^"]*"', "", logo, count=2).replace("<svg", '<svg width="72" height="72"', 1)
     except OSError:
         logo = ""
     partners = (

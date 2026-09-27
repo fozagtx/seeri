@@ -10,3 +10,4 @@ Official brand assets only. No file was vectorized, traced, redrawn, or edited.
 | ixs.png | Official IXS Finance GitHub organization avatar, https://github.com/IXS-FINANCE.png. |
 
 Note: robinhood.svg and openserv.svg are the light-on-dark (white/black) variants as published; robinhood.svg renders white, display it on a dark background.
+| huggingface.svg | Official Hugging Face logo, https://huggingface.co/front/assets/huggingface_logo.svg. |
