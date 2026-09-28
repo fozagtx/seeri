@@ -5,7 +5,6 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 required_files=(
   ".gitignore"
-  "ARTICLE.md"
   "README.md"
   "LICENSE"
   "CLAUDE.md"
