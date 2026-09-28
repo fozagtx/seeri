@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/hero.png" alt="Seeri - verifiable deep research MCP for anything onchain" />
+  <img src="./assets/hero.png" alt="Seeri - verifiable deep research for anything onchain" />
 </p>
 
 <p align="center">
@@ -11,7 +11,10 @@
 
 # Seeri
 
-Seeri is a research MCP server for onchain questions. Connect it to Claude, ask about a token, protocol, chain, or vault, and it returns a graded report: sub-questions, primary sources, a confidence level on every claim, and a list of what would change the conclusion. Every reasoning step runs on SERV.
+Seeri is a research workflow for onchain questions, shipped two ways: a **skill** any agent can load, and an **MCP server** that runs the same workflow with SERV doing the reasoning. Ask about a token, protocol, chain, or vault and you get a graded report: sub-questions, primary sources, a confidence level on every claim, and a list of what would change the conclusion.
+
+- **Skill** (`skill/`): the method in Markdown. Intake, decomposition, source map, evidence grid, confidence rules, domain packs. Install it into Claude Code, Cursor, or any agent that reads skills.
+- **MCP** (`mcp/`): the method executed. It loads the skill at runtime, gathers evidence from chain RPC, pools, TVL, and the web, and grades everything through SERV. Hosted at https://pima5-seeri.hf.space/mcp.
 
 ## Built with
 
@@ -51,7 +54,13 @@ Seeri is free and MIT-licensed. These are the systems it reasons with and resear
 
 ## Installation
 
-Seeri is hosted. Nothing to install for the MCP:
+**Skill** (any agent that reads skills):
+
+```bash
+git clone https://github.com/fozagtx/seeri && cd seeri && ./install.sh -y   # installs to ~/.agents/skills/seeri
+```
+
+**MCP** (hosted, nothing to run):
 
 **Claude.ai / Claude Desktop:** Settings, Connectors, Add custom connector, paste:
 

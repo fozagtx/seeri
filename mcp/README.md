@@ -16,7 +16,7 @@ tags:
 
 # Seeri
 
-Seeri is a verifiable deep-research MCP server for onchain questions. It decomposes a question into sub-claims, gathers evidence from block explorers, market data, and the web, then grades every claim with SERV Reasoning so each conclusion carries an auditable confidence rating. When no SERV key is configured it runs the same pipeline with deterministic local heuristics and labels the output accordingly.
+Seeri is a verifiable deep-research workflow for onchain questions, available as an agent skill and as this MCP server. The server loads the skill at runtime and runs it. It decomposes a question into sub-claims, gathers evidence from block explorers, market data, and the web, then grades every claim with SERV Reasoning so each conclusion carries an auditable confidence rating. When no SERV key is configured it runs the same pipeline with deterministic local heuristics and labels the output accordingly.
 
 ## Endpoint
 
